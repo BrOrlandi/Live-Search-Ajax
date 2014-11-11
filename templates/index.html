@@ -6,14 +6,15 @@
 		<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
 		<script>
 			function liveSearch(value){
-				value = value.trim();
-				if(value != ""){
+				value = value.trim(); // remove any spaces around the text
+				if(value != ""){ // don't make requests with an empty string
 					$.ajax({
 						url: "search",
 						data: {searchText: value},
 						dataType: "json",
 						success: function(data){
 							var res = "";
+							// create the html with results
 							for(i in data.results){
 								res += "<div>"+data.results[i]+"</div>";
 							}
@@ -23,15 +24,15 @@
 					});
 				}
 				else{
-					$("#results").html("");
+					$("#results").html(""); // set the results empty in case of empty string
 				}
 			}
 		</script>
 	</head>
 	<body>
 		<h1>Live Search Ajax Demo</h1>
-		<input type="text" onkeyup="liveSearch(this.value)">
+		<input type="text" onkeyup="liveSearch(this.value)"> <!-- Assigns the key up event to call the liveSearch() function -->
 		<br>
-		<div id="results"></div>
+		<div id="results"></div> <!-- Results will be printed here -->
 	</body>
 </html>

@@ -6,6 +6,7 @@ app.config.update(dict(
     DEBUG=True,
 ))
 
+# Usually the searchs occurs in databases, for this simple example we're using search in this array
 BRAZIL_STATES = [u"Acre - Rio Branco",
 u"Alagoas - Maceió",
 u"Amapá - Macapá",
@@ -37,13 +38,16 @@ u"Tocantins - Palmas"]
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    return render_template("index.html") # render the page
 
 @app.route("/search")
 def search():
-	text = request.args['searchText']
+	text = request.args['searchText'] # get the text to search for
+	# create an array with the elements of BRAZIL_STATES that contains the string
+	# the case is ignored
 	result = [c for c in BRAZIL_STATES if unicode(text).lower() in c.lower()]
-	return json.dumps({"results":result})
+	# return as JSON
+	return json.dumps({"results":result}) 
 
 if __name__ == "__main__":
     app.run()
