@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Live Search Ajax Demo</title>
+		<meta charset="utf-8">
+		<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+		<script>
+			function liveSearch(value){
+				value = value.trim();
+				if(value != ""){
+					$.ajax({
+						url: "search",
+						data: {searchText: value},
+						dataType: "json",
+						success: function(data){
+							var res = "";
+							for(i in data.results){
+								res += "<div>"+data.results[i]+"</div>";
+							}
+							$("#results").html(res);
+						}
+
+					});
+				}
+				else{
+					$("#results").html("");
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<h1>Live Search Ajax Demo</h1>
+		<input type="text" onkeyup="liveSearch(this.value)">
+		<br>
+		<div id="results"></div>
+	</body>
+</html>
